@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CashType {
+  IN
+  OUT
+}
+
+enum ObligationStatus {
+  PENDING
+  PAID
+  OVERDUE
+}
+
+model CashEntry {
+  id        Int      @id @default(autoincrement())
+  agentId   Int?
+  agent     User?    @relation(fields: [agentId], references: [id])
+  type      CashType
+  amount    Decimal  @db.Decimal(18, 2)
+  category  String
+  note      String?
+  timestamp DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([agentId, timestamp])
+}
+
+model Obligation {
+  id          Int      @id @default(autoincrement())
+  agentId     Int?
+  agent       User?    @relation(fields: [agentId], references: [id])
+  counterparty String
+  amount      Decimal  @db.Decimal(18, 2)
+  dueDate     DateTime
+  status      ObligationStatus @default(PENDING)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([agentId, dueDate, status])
+}
+
+model Lending {
+  id        Int      @id @default(autoincrement())
+  agentId   Int?
+  agent     User?    @relation(fields: [agentId], references: [id])
+  direction String   // 'GIVEN' | 'TAKEN' - keep as string for extensibility
+  person    String
+  amount    Decimal  @db.Decimal(18, 2)
+  note      String?
+  dueDate   DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([agentId, dueDate])
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String?  @unique
+  role      Role     @default(AGENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cashEntries  CashEntry[]
+  obligations  Obligation[]
+  lendings     Lending[]
+}
+
+enum Role {
+  ADMIN
+  AGENT
+}

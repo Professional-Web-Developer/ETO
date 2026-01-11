@@ -1,0 +1,1 @@
+// Prisma v4 migration: config files left intentionally empty to avoid interfering with v4 behavior.

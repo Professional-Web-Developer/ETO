@@ -1,0 +1,9 @@
+{
+  "root": true,
+  "extends": ["next/core-web-vitals", "eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["@typescript-eslint", "tailwindcss"],
+  "rules": {
+    "tailwindcss/classnames-order": "warn",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
+  }
+}

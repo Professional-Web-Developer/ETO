@@ -1,0 +1,49 @@
+{
+  "name": "eto-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "prisma:generate": "prisma generate",
+    "prisma:seed": "prisma db seed",
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watch"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "4.16.0",
+    "clsx": "^1.2.1",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "swr": "^2.3.8",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^29.5.0",
+    "autoprefixer": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "eslint-plugin-tailwindcss": "latest",
+    "jest": "^29.6.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "postcss": "latest",
+    "prettier": "latest",
+    "prisma": "4.16.0",
+    "tailwindcss": "latest",
+    "ts-jest": "^29.1.0",
+    "typescript": "latest",
+    "ts-node": "latest"
+  }
+}
